@@ -56,14 +56,17 @@ class Asset(models.Model):
         choices=Currency.choices,
         verbose_name='Purchase currency',
     )
-    current_price = models.DecimalField(
+    price_usd = models.DecimalField(
         max_digits=15,
         decimal_places=5,
         null=True,
         blank=True,
-        verbose_name='Current price USD',
+        verbose_name='Purchase price in USD',
     )
 
     created_at = models.DateField(
         auto_now_add=datetime.now(),
     )
+
+    def __str__(self) -> str:
+        return f'{self.ticker} {self.name}'
