@@ -47,7 +47,7 @@ class Asset(models.Model):
         verbose_name='Crypto asset amount',
     )
     purchase_price = models.DecimalField(
-        max_digits=10,
+        max_digits=15,
         decimal_places=6,
         verbose_name='Purchase price',
     )
