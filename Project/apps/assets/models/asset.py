@@ -68,5 +68,10 @@ class Asset(models.Model):
         auto_now_add=datetime.now(),
     )
 
+    class Meta:
+        db_table = 'asset'
+        verbose_name = 'asset'
+        verbose_name_plural = 'assets'
+
     def __str__(self) -> str:
         return f'{self.ticker} {self.name}'

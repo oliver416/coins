@@ -27,5 +27,10 @@ class Migration(migrations.Migration):
                                                   verbose_name='Purchase price in USD')),
                 ('created_at', models.DateField(auto_now_add=True)),
             ],
+            options={
+                'verbose_name': 'asset',
+                'verbose_name_plural': 'assets',
+                'db_table': 'asset',
+            },
         ),
     ]

@@ -1,6 +1,8 @@
 from typing import final
 from pycoingecko import CoinGeckoAPI
 
+from apps.currencies.exceptions import CurrencyListError
+
 
 @final
 class CoingeckoClient:
@@ -22,4 +24,7 @@ class CoingeckoClient:
         Returns a list of dicts like the following:
         {'id': 'zyx', 'symbol': 'zyx', 'name': 'ZYX'}
         """
-        return cls().coingecko.get_coins_list()
+        try:
+            return cls().coingecko.get_coins_list()
+        except Exception as e:
+            raise CurrencyListError from e

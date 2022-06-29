@@ -1,0 +1,2 @@
+class CurrencyListError(Exception):
+    pass
