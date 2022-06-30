@@ -20,3 +20,6 @@ class Currency(models.Model):
         db_table = 'currency'
         verbose_name = 'currency'
         verbose_name_plural = 'currencies'
+
+    def __str__(self) -> str:
+        return f'{self.name} - {self.market_id}'

@@ -2,6 +2,8 @@ from datetime import datetime
 
 from django.db import models
 
+from apps.currencies.models import Currency as MarketCurrency
+
 
 class Asset(models.Model):
     class Network(models.TextChoices):
@@ -9,12 +11,13 @@ class Asset(models.Model):
         BNB = 'BEP-20', 'Binance network'
 
     class Currency(models.TextChoices):
-        USDT = 'USDT', 'USDT Tether'
+        USDT = 'USD', 'USD'
         BNB = 'BNB', 'Binance coin'
 
-    name = models.CharField(
-        max_length=50,
-        verbose_name='Currency name',
+    name = models.ForeignKey(
+        MarketCurrency,
+        verbose_name='Asset currency name',
+        on_delete=models.DO_NOTHING,
     )
     ticker = models.CharField(
         max_length=10,
