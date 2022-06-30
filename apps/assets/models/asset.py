@@ -16,8 +16,9 @@ class Asset(models.Model):
 
     name = models.ForeignKey(
         MarketCurrency,
-        verbose_name='Asset currency name',
         on_delete=models.DO_NOTHING,
+        related_name='assets',
+        verbose_name='Asset currency name',
     )
     ticker = models.CharField(
         max_length=10,

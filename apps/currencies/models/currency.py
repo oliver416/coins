@@ -15,6 +15,13 @@ class Currency(models.Model):
         default='Coingecko',
         verbose_name='Market name',
     )
+    rate = models.DecimalField(
+        max_digits=15,
+        decimal_places=6,
+        blank=True,
+        null=True,
+        verbose_name='Currency rate',
+    )
 
     class Meta:
         db_table = 'currency'

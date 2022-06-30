@@ -28,7 +28,8 @@ class Migration(migrations.Migration):
                                                   verbose_name='Purchase price in USD')),
                 ('created_at', models.DateField(auto_now_add=True)),
                 ('name', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='currencies.currency',
-                                           verbose_name='Asset currency name')),
+                                           verbose_name='Asset currency name',
+                                           related_name='assets',)),
             ],
             options={
                 'verbose_name': 'asset',

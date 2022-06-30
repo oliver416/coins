@@ -24,5 +24,5 @@ class GetRoiService:
 
     @classmethod
     def get_asset_price(cls, asset: Asset) -> Decimal:
-        currency_rate = GetCurrencyRateService.get_currency_rate(asset.ticker)
+        currency_rate = GetCurrencyRateService.get_currency_rate(asset)
         return currency_rate * asset.amount
