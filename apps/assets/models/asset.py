@@ -11,7 +11,7 @@ class Asset(models.Model):
         BNB = 'BEP-20', 'Binance network'
 
     class Currency(models.TextChoices):
-        USDT = 'USD', 'USD'
+        USD = 'USD', 'USD'
         BNB = 'BNB', 'Binance coin'
 
     name = models.ForeignKey(
@@ -79,3 +79,7 @@ class Asset(models.Model):
 
     def __str__(self) -> str:
         return f'{self.ticker} {self.name}'
+
+    def save(self, **kwargs):
+        self.price_usd = self.purchase_price
+        return super().save(**kwargs)

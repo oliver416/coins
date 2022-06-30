@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.contrib import admin
 from django.utils.html import format_html
 
@@ -16,7 +18,8 @@ class AssetAdmin(admin.ModelAdmin):
         'name',
         'amount',
         'roi',
-        'price_usd',
+        'current_price',
+        'initial_price',
         'wallet',
     )
 
@@ -25,3 +28,12 @@ class AssetAdmin(admin.ModelAdmin):
         color, sign = ('green', '+') if roi >= 0 else ('red', '')
         html = f'''<b style="color:{color}">{sign}{{}}%</b>'''
         return format_html(html, roi)
+
+    def current_price(self, asset: Asset) -> str:
+        roi = GetRoiService.get_roi(asset)
+        price = asset.amount * asset.price_usd + asset.price_usd / 100 * roi
+        price = Decimal(price).quantize(Decimal('1'))
+        return str(price)
+
+    def initial_price(self, asset: Asset) -> str:
+        return str(asset.price_usd.quantize(Decimal('1')))
