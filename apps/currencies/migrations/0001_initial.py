@@ -28,6 +28,8 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('ticker', models.CharField(blank=True, max_length=10, null=True, verbose_name='Ticker')),
                 ('contract', models.CharField(blank=True, max_length=255, null=True, verbose_name='Contract address')),
+                ('rate', models.DecimalField(blank=True, decimal_places=6, max_digits=15, null=True,
+                                             verbose_name='Currency rate')),
                 ('name', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='currencies',
                                            to='currencies.coingeckocurrency', verbose_name='Currency name')),
             ],

@@ -22,6 +22,13 @@ class Currency(models.Model):
         blank=True,
         verbose_name='Contract address',
     )
+    rate = models.DecimalField(
+        max_digits=15,
+        decimal_places=6,
+        null=True,
+        blank=True,
+        verbose_name='Currency rate',
+    )
 
     class Meta:
         db_table = 'currency'

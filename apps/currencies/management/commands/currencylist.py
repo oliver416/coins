@@ -1,7 +1,9 @@
+import traceback
+
 from django.core.management.base import BaseCommand
 
 from apps.currencies.services import GetCurrencyRateService
-from apps.currencies.models import Currency
+from apps.currencies.models import CoinGeckoCurrency
 
 
 class Command(BaseCommand):
@@ -11,12 +13,13 @@ class Command(BaseCommand):
         try:
             currency_list = GetCurrencyRateService.currency_list()
             currencies = [
-                Currency(
+                CoinGeckoCurrency(
                     name=currency.name,
                     market_id=currency.id,
                 ) for currency in currency_list
             ]
-            Currency.objects.bulk_create(currencies)
+            CoinGeckoCurrency.objects.bulk_create(currencies)
             print('Currency list has been successfully created')
         except Exception as e:
-            print(f'An error has been occurred: {e.__class__.__name__}: {e}')
+            print(f'An error has been occurred: {e.__class__.__name__}: {e} '
+                  f'{traceback.format_tb(e.__traceback__)}')
