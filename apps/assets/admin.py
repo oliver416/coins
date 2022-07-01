@@ -14,7 +14,6 @@ class AssetAdmin(admin.ModelAdmin):
     )
     list_display = (
         'id',
-        'ticker',
         'name',
         'amount',
         'roi',

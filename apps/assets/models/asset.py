@@ -2,7 +2,7 @@ from datetime import datetime
 
 from django.db import models
 
-from apps.currencies.models import Currency as MarketCurrency
+from apps.currencies.models import Currency
 
 
 class Asset(models.Model):
@@ -10,21 +10,11 @@ class Asset(models.Model):
         ETH = 'ERC-20', 'Ethereum network'
         BNB = 'BEP-20', 'Binance network'
 
-    class Currency(models.TextChoices):
-        USD = 'USD', 'USD'
-        BNB = 'BNB', 'Binance coin'
-
     name = models.ForeignKey(
-        MarketCurrency,
+        Currency,
         on_delete=models.DO_NOTHING,
         related_name='assets',
         verbose_name='Asset currency name',
-    )
-    ticker = models.CharField(
-        max_length=10,
-        null=True,
-        blank=True,
-        verbose_name='Ticker',
     )
     network = models.CharField(
         max_length=10,
@@ -39,12 +29,6 @@ class Asset(models.Model):
         blank=True,
         verbose_name='Coin wallet',
     )
-    contract = models.CharField(
-        max_length=255,
-        null=True,
-        blank=True,
-        verbose_name='Contract address',
-    )
     amount = models.DecimalField(
         max_digits=15,
         decimal_places=2,
@@ -55,9 +39,11 @@ class Asset(models.Model):
         decimal_places=6,
         verbose_name='Purchase price',
     )
-    currency = models.CharField(
-        max_length=4,
-        choices=Currency.choices,
+    currency = models.ForeignKey(
+        Currency,
+        on_delete=models.DO_NOTHING,
+        blank=True,
+        null=True,
         verbose_name='Purchase currency',
     )
     price_usd = models.DecimalField(
@@ -78,7 +64,7 @@ class Asset(models.Model):
         verbose_name_plural = 'assets'
 
     def __str__(self) -> str:
-        return f'{self.ticker} {self.name}'
+        return f'{self.name}'
 
     def save(self, **kwargs):
         self.price_usd = self.purchase_price

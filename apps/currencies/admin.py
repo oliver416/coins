@@ -7,7 +7,7 @@ from apps.currencies.models import Currency
 class CurrencyAdmin(admin.ModelAdmin):
     list_display = (
         'name',
-        'market_id',
+        'ticker',
     )
     search_fields = (
         'name',

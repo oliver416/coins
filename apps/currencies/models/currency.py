@@ -1,26 +1,26 @@
 from django.db import models
 
+from .coingecko_currency import CoinGeckoCurrency
+
 
 class Currency(models.Model):
-    name = models.CharField(
-        max_length=255,
+    name = models.ForeignKey(
+        CoinGeckoCurrency,
+        on_delete=models.DO_NOTHING,
+        related_name='currencies',
         verbose_name='Currency name',
     )
-    market_id = models.CharField(
-        max_length=255,
-        verbose_name='Market ID',
-    )
-    market = models.CharField(
+    ticker = models.CharField(
         max_length=10,
-        default='Coingecko',
-        verbose_name='Market name',
-    )
-    rate = models.DecimalField(
-        max_digits=15,
-        decimal_places=6,
-        blank=True,
         null=True,
-        verbose_name='Currency rate',
+        blank=True,
+        verbose_name='Ticker',
+    )
+    contract = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        verbose_name='Contract address',
     )
 
     class Meta:
@@ -29,4 +29,4 @@ class Currency(models.Model):
         verbose_name_plural = 'currencies'
 
     def __str__(self) -> str:
-        return f'{self.name} - {self.market_id}'
+        return f'{self.ticker} - {self.name}'
