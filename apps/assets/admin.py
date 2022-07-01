@@ -18,7 +18,7 @@ class AssetAdmin(admin.ModelAdmin):
         'amount',
         'roi',
         'current_price',
-        'initial_price',
+        'price_usd',
         'wallet',
     )
 
@@ -30,6 +30,3 @@ class AssetAdmin(admin.ModelAdmin):
 
     def current_price(self, asset: Asset) -> str:
         return str(GetRoiService.get_asset_price(asset))
-
-    def initial_price(self, asset: Asset) -> str:
-        return str(asset.price_usd.quantize(Decimal('1.000000')))
