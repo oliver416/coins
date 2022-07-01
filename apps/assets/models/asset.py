@@ -68,4 +68,8 @@ class Asset(models.Model):
 
     def save(self, **kwargs):
         self.price_usd = self.purchase_price
+
+        if self.currency is not None:
+            self.price_usd = self.purchase_price * self.currency.rate
+
         return super().save(**kwargs)
