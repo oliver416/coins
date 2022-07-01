@@ -29,10 +29,7 @@ class AssetAdmin(admin.ModelAdmin):
         return format_html(html, roi)
 
     def current_price(self, asset: Asset) -> str:
-        roi = GetRoiService.get_roi(asset)
-        price = asset.amount * asset.price_usd + asset.price_usd / 100 * roi
-        price = Decimal(price).quantize(Decimal('1'))
-        return str(price)
+        return str(GetRoiService.get_asset_price(asset))
 
     def initial_price(self, asset: Asset) -> str:
-        return str(asset.price_usd.quantize(Decimal('1')))
+        return str(asset.price_usd.quantize(Decimal('1.000000')))

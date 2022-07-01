@@ -48,7 +48,7 @@ class Asset(models.Model):
     )
     price_usd = models.DecimalField(
         max_digits=15,
-        decimal_places=5,
+        decimal_places=6,
         null=True,
         blank=True,
         verbose_name='Purchase price in USD',

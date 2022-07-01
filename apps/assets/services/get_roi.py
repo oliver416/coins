@@ -1,7 +1,6 @@
 from typing import final
 from decimal import Decimal
 from apps.assets.models import Asset
-from apps.currencies.services import GetCurrencyRateService
 
 
 @final

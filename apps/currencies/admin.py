@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from apps.currencies.models import Currency, CoinGeckoCurrency
-from apps.currencies.services import RunCommandService
+from apps.currencies.services import CreateCurrencyRateService
 
 
 @admin.register(Currency)
@@ -17,9 +17,9 @@ class CurrencyAdmin(admin.ModelAdmin):
 
     def changelist_view(self, request, extra_context=None):
         if CoinGeckoCurrency.objects.count() == 0:
-            RunCommandService.currency_list()
+            CreateCurrencyRateService.create_currency_list()
 
         if not all(Currency.objects.all().values_list('rate', flat=True)):
-            RunCommandService.currency_rates()
+            CreateCurrencyRateService.fill_currency_rates()
 
         return super().changelist_view(request, extra_context)

@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('wallet', models.CharField(blank=True, max_length=255, null=True, verbose_name='Coin wallet')),
                 ('amount', models.DecimalField(decimal_places=2, max_digits=15, verbose_name='Crypto asset amount')),
                 ('purchase_price', models.DecimalField(decimal_places=6, max_digits=15, verbose_name='Purchase price')),
-                ('price_usd', models.DecimalField(blank=True, decimal_places=5, max_digits=15, null=True,
+                ('price_usd', models.DecimalField(blank=True, decimal_places=6, max_digits=15, null=True,
                                                   verbose_name='Purchase price in USD')),
                 ('created_at', models.DateField(auto_now_add=True)),
                 ('currency', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING,
