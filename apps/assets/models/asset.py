@@ -3,6 +3,7 @@ from datetime import datetime
 from django.db import models
 
 from apps.currencies.models import Currency
+from apps.currencies.services import CreateCurrencyRateService
 
 
 class Asset(models.Model):
@@ -67,9 +68,11 @@ class Asset(models.Model):
         return f'{self.name}'
 
     def save(self, **kwargs):
-        self.price_usd = self.purchase_price
+        if self.price_usd is None:
+            self.price_usd = self.purchase_price
 
-        if self.currency is not None:
-            self.price_usd = self.purchase_price * self.currency.rate
+            if self.currency is not None:
+                CreateCurrencyRateService.fill_currency_rates()
+                self.price_usd = self.purchase_price * self.currency.rate
 
         return super().save(**kwargs)

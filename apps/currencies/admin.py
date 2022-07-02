@@ -19,5 +19,4 @@ class CurrencyAdmin(admin.ModelAdmin):
         if CoinGeckoCurrency.objects.count() == 0:
             CreateCurrencyRateService.create_currency_list()
 
-        CreateCurrencyRateService.fill_currency_rates()
         return super().changelist_view(request, extra_context)

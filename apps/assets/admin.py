@@ -1,8 +1,7 @@
-from decimal import Decimal
-
 from django.contrib import admin
 from django.utils.html import format_html
 
+from apps.currencies.services import CreateCurrencyRateService
 from .models import Asset
 from .services import GetRoiService
 
@@ -30,3 +29,7 @@ class AssetAdmin(admin.ModelAdmin):
 
     def current_price(self, asset: Asset) -> str:
         return str(GetRoiService.get_asset_price(asset))
+
+    def changelist_view(self, request, extra_context=None):
+        CreateCurrencyRateService.fill_currency_rates()
+        return super().changelist_view(request, extra_context)
