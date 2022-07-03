@@ -1,0 +1,1 @@
+1. Add migrate, collectstatic, createadmin (custom command) to deploy.
