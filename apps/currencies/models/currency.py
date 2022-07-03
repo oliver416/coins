@@ -23,8 +23,8 @@ class Currency(models.Model):
         verbose_name='Contract address',
     )
     rate = models.DecimalField(
-        max_digits=15,
-        decimal_places=6,
+        max_digits=17,
+        decimal_places=10,
         null=True,
         blank=True,
         verbose_name='Currency rate',
