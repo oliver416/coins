@@ -1,5 +1,7 @@
 from django.db import models
 
+from apps.currencies.services import CreateCurrencyRateService
+
 from .coingecko_currency import CoinGeckoCurrency
 
 
@@ -37,3 +39,9 @@ class Currency(models.Model):
 
     def __str__(self) -> str:
         return f'{self.ticker} - {self.name}'
+
+    def save(self, **kwargs):
+        self.rate = CreateCurrencyRateService.get_currency_rate(
+            self.name.market_id, # noqa
+        ).rate
+        return super().save(*kwargs)
