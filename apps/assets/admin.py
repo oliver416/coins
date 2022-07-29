@@ -1,4 +1,5 @@
 from decimal import Decimal
+from typing import Optional
 
 from django.contrib import admin
 from django.utils.html import format_html
@@ -19,6 +20,7 @@ class AssetAdmin(admin.ModelAdmin):
         'amount_',
         'roi',
         'price',
+        'buy_price',
         'price_usd_',
         'wallet',
     )
@@ -46,6 +48,34 @@ class AssetAdmin(admin.ModelAdmin):
     def price(self, asset: Asset) -> str:
         price = GetRoiService.get_asset_price(asset)
         return str(price.quantize(Decimal('1.00')))
+
+    @staticmethod
+    def _get_zero_count_after_separator(number: Decimal) -> Optional[int]:
+        zero_count = 0
+        number = str(number)
+
+        if 'E' in number:
+            return
+
+        decimal_part = number.split('.')[-1]
+
+        for digit in decimal_part:
+            if digit == '0':
+                zero_count += 1
+            else:
+                break
+
+        return zero_count
+
+    def buy_price(self, asset: Asset) -> str:
+        price = asset.price_usd / asset.amount
+        zero_numbers = self._get_zero_count_after_separator(price)
+        buy_price = f'{price:.2E}'
+
+        if zero_numbers is not None and zero_numbers <= 5:
+            buy_price = str(price.quantize(Decimal('1.0000000')))
+
+        return buy_price
 
     @admin.display(description='Price USD')
     def price_usd_(self, asset: Asset) -> str:
