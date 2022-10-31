@@ -36,7 +36,7 @@ class CreateCurrencyRateService:
             currencies = []
 
             for currency in currencies_models.Currency.objects.all():
-                currency.rate = rates[currency.name.market_id]
+                currency.rate = rates.get(currency.name.market_id, 0)
                 currencies.append(currency)
 
             currencies_models.Currency.objects.bulk_update(currencies, ['rate'])
