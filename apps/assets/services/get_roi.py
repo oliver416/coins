@@ -15,6 +15,9 @@ class GetRoiService:
         asset_price = cls.get_asset_price(asset)
         price_usd = getattr(asset, 'price_usd', None)
 
+        if asset_price == 0:
+            return roi
+
         if price_usd is not None and price_usd != Decimal('0'):
             roi = (asset_price - asset.price_usd) / asset.price_usd * 100
             roi = Decimal(roi).quantize(Decimal('1.00'))
