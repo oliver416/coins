@@ -20,3 +20,11 @@ class CurrencyAdmin(admin.ModelAdmin):
             CreateCurrencyRateService.create_currency_list()
 
         return super().changelist_view(request, extra_context)
+
+
+@admin.register(CoinGeckoCurrency)
+class CoinGeckoCurrencyAdmin(admin.ModelAdmin):
+    search_fields = (
+        'name',
+        'market_id',
+    )
