@@ -42,6 +42,12 @@ class AssetAdmin(admin.ModelAdmin):
     def roi(self, asset: Asset) -> str:
         roi = GetRoiService.get_roi(asset)
         color, sign = ('green', '+') if roi >= 0 else ('red', '')
+
+        if roi == Decimal('inf'):
+            return format_html(
+                '''<b style="color:black">CURRENCY IS NOT FOUND</b>''',
+            )
+
         html = f'''<b style="color:{color}">{sign}{{}}%</b>'''
         return format_html(html, roi)
 
