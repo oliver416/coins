@@ -44,6 +44,7 @@ class CreateCurrencyRateService:
         except Exception as e:
             print(f'An error has been occurred: {e.__class__.__name__}: {e}'
                   f'{traceback.format_tb(e.__traceback__)}')
+            raise e
 
     @classmethod
     def get_currency_rate(cls, market_id: str) -> Currency:

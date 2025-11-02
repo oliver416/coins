@@ -89,6 +89,11 @@ class AssetAdmin(admin.ModelAdmin):
         return str(price.quantize(Decimal('1.00')))
 
     def changelist_view(self, request, extra_context=None):
-        CreateCurrencyRateService.fill_currency_rates()
-        messages.success(request, 'Currency rates has been successfully updated')
+        try:
+            CreateCurrencyRateService.fill_currency_rates()
+            messages.success(request, 'Currency rates has been successfully updated')
+        except Exception as e:
+            error = f'An error has been occured: {e.__class__.__name__} {e}'
+            messages.error(request, error)
         return super().changelist_view(request, extra_context)
+
