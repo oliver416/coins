@@ -1,7 +1,7 @@
 from decimal import Decimal
 from typing import Optional
 
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.utils.html import format_html
 
 from apps.currencies.services import CreateCurrencyRateService
@@ -90,4 +90,5 @@ class AssetAdmin(admin.ModelAdmin):
 
     def changelist_view(self, request, extra_context=None):
         CreateCurrencyRateService.fill_currency_rates()
+        messages.success(request, 'Currency rates has been successfully updated')
         return super().changelist_view(request, extra_context)
